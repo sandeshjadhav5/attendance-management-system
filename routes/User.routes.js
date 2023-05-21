@@ -57,7 +57,7 @@ userRouter.post("/login", async (req, res) => {
         }
       });
     } else {
-      res.send("Login Failed");
+      res.send("Enter Correct Details");
     }
   } catch (err) {
     console.log(err);
