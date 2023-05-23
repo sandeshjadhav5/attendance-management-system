@@ -5,8 +5,7 @@ const LectureSchema = mongoose.Schema({
     lecture_date:{type:String,required:true},
     start_at:{type:String,reqiured:true},
     end_at:{type:String,reqiured:true},
-    present:[{type:mongoose.Schema.Types.ObjectId,ref:"student"}],
-    absent:[{type:String}],
+    present:[{type:String}],
     lecture_type:{type:String,required:true}
 },{versionKey: false})
 const LectureModel = mongoose.model("lecture",LectureSchema);
