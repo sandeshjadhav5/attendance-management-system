@@ -6,7 +6,7 @@ const LectureSchema = mongoose.Schema({
     start_at:{type:String,reqiured:true},
     end_at:{type:String,reqiured:true},
     present:[{type:String}],
-    year:{type:string,required:true},
+    year:{type:String,required:true},
     lecture_type:{type:String,required:true}
 },{versionKey: false})
 const LectureModel = mongoose.model("lecture",LectureSchema);
