@@ -14,7 +14,7 @@ const attendanceSchema = mongoose.Schema({
     type: Boolean,
     required: true,
   },
-});
+},{versionKey: false});
 
 const AttendanceModel = mongoose.model("attendance", attendanceSchema);
 

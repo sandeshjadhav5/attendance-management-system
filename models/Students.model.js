@@ -25,7 +25,7 @@ const studentScehma = mongoose.Schema({
   },
   subjects:[{type:mongoose.Schema.Types.ObjectId,ref:"subject"}],
   userID: String,
-});
+},{versionKey: false});
 
 const StudentModel = mongoose.model("student", studentScehma);
 
