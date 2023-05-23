@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const studentScehma = mongoose.Schema({
   name: {
     type: String,
@@ -24,14 +23,7 @@ const studentScehma = mongoose.Schema({
     type: String,
     required: true,
   },
-  subjects: [
-    {
-      name: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
+  subjects:[{type:mongoose.Schema.Types.ObjectId,ref:"subject"}],
   userID: String,
 });
 

@@ -2,6 +2,7 @@ const express = require("express");
 const { connection } = require("./configs/db");
 const { userRouter } = require("./routes/User.routes");
 const { studentRouter } = require("./routes/Student.routes");
+const {subjectRouter}= require("./routes/Subject.router");
 const { attendanceRouter } = require("./routes/Attendance.routes");
 
 require("dotenv").config();
@@ -11,7 +12,7 @@ const app = express();
 app.use(express.json());
 
 app.use(
-  cors({
+  cors({ 
     origin: "*",
   })
 );
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
 
 app.use("/users", userRouter);
 app.use("/students", studentRouter);
+app.use("/subjects", subjectRouter);
 app.use("/attendance", attendanceRouter);
 
 app.listen(process.env.port, async () => {
