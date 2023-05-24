@@ -18,22 +18,28 @@ studentRouter.get("/", async (req, res) => {
 studentRouter.get("/:id", async (req, res) => {
   const id = req.params.id;
   try {
-    let data = await StudentModel.findById(id).populate({path:"subjects",populate:{path:"lectures",select:"-absent"}}).lean().exec()
+    let data = await StudentModel.findById(id)
+      .populate({
+        path: "subjects",
+        populate: { path: "lectures", select: "-absent" },
+      })
+      .lean()
+      .exec();
 
     let subArr = [];
-  data.subjects.forEach((el)=>{
-  let count=0;
-  el.lectures.forEach(e=>{
-    if(e.present.includes(id)){
-      count++
-    }
-  })
-  let avg = Math.round((count/(el.lectures.length))*100)
-  el["attendence_percentage"] = avg
-})
-res.status(200).send({...data})
-} catch (err) {
-    res.status(400).send("No Student was found",err)
+    data.subjects.forEach((el) => {
+      let count = 0;
+      el.lectures.forEach((e) => {
+        if (e.present.includes(id)) {
+          count++;
+        }
+      });
+      let avg = Math.round((count / el.lectures.length) * 100);
+      el["attendence_percentage"] = avg;
+    });
+    res.status(200).send({ ...data });
+  } catch (err) {
+    res.status(400).send("No Student was found", err);
   }
 });
 
@@ -55,10 +61,10 @@ studentRouter.patch("/update/:id", async (req, res) => {
   const payload = req.body;
   const id = req.params.id;
   try {
-    await StudentModel.findByIdAndUpdate(id,payload);
+    await StudentModel.findByIdAndUpdate(id, payload);
     res.send("updated student information");
   } catch (err) {
-    console.log(err)
+    console.log(err);
     res.status(400).send({ msg: "Something Went Wrong" });
   }
 });
@@ -74,9 +80,6 @@ studentRouter.delete("/delete/:id", async (req, res) => {
     res.send({ msg: "Something Went Wrong" });
   }
 });
-
-
-
 
 module.exports = {
   studentRouter,
