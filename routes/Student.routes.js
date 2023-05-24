@@ -18,7 +18,6 @@ studentRouter.get("/", async (req, res) => {
       res.send(students);
     }
   } catch (err) {
-    console.log(err)
    res.status(400).send(err)
   }
 });
