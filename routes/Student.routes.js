@@ -1,16 +1,27 @@
 const express = require("express");
 
 const { StudentModel } = require("../models/Students.model");
+const { default: mongoose } = require("mongoose");
 
 const studentRouter = express.Router();
 
 //GET REQUEST - GET STUDENTS
 studentRouter.get("/", async (req, res) => {
+  const {year, subject} = req.query;
+  sub = new mongoose.Types.ObjectId(subject)
   try {
-    const students = await StudentModel.find();
-    res.send(students);
+    if(year||sub){
+      console.log("inside if condigiotn")
+      const students = await StudentModel.find({subjects:{$elemMatch:{$eq:sub}},year:year});
+      res.send(students);
+    }else{
+      console.log("inside else condigiotn")
+      const students = await StudentModel.find();
+      res.send(students);
+    }
   } catch (err) {
-    console.log("err is => ", err);
+    console.log(err)
+   res.status(400).send(err)
   }
 });
 
@@ -25,8 +36,6 @@ studentRouter.get("/:id", async (req, res) => {
       })
       .lean()
       .exec();
-
-    let subArr = [];
     data.subjects.forEach((el) => {
       let count = 0;
       el.lectures.forEach((e) => {
