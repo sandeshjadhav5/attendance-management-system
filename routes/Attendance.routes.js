@@ -48,8 +48,13 @@ attendanceRouter.get("/records/year",async(req,res)=>{
       strength: { $size: '$present'}
     }}
     ],{lean:true}).exec()
-
-    res.send(data)
+    let totalStrength=0
+    data.forEach((el)=>{
+      totalStrength+=el.strength
+    })
+    let avg = Math.round((totalStrength/(totalEnrolledStudents*data.length))*100)
+    let output = {enrolledStudents:totalEnrolledStudents,average_attendence:avg,lectures_count:data.length}
+    res.send(output)
   }catch(err){
     console.log(err)
     res.status(400).send({message:"something went wrong",err})
