@@ -10,12 +10,10 @@ studentRouter.get("/", async (req, res) => {
   const {year, subject} = req.query;
   sub = new mongoose.Types.ObjectId(subject)
   try {
-    if(year||sub){
-      console.log("inside if condigiotn")
+    if(year&&sub){
       const students = await StudentModel.find({subjects:{$elemMatch:{$eq:sub}},year:year});
       res.send(students);
     }else{
-      console.log("inside else condigiotn")
       const students = await StudentModel.find();
       res.send(students);
     }

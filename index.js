@@ -29,7 +29,6 @@ app.use("/attendance", attendanceRouter);
 
 //GET STUDENTS BY YEAR
 app.get("/year", async (req, res) => {
-  const { year } = req.query;
   console.log(req.query);
   try {
     const data = await StudentModel.find(req.query);
